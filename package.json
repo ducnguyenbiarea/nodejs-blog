@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ducnguyenbiarea/nodejs-blog#readme",
   "lint-staged": {
-   "src/**/*.{js, json, scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+   "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
   },
   "description": "^C",
   "dependencies": {
@@ -32,7 +32,7 @@
     "express-handlebars": "^8.0.1"
   },
 "husky": {
-  "hooks":{
+  "hooks": {
   "pre-commit": "lint-staged"
   }
 },
