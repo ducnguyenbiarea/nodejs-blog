@@ -17,7 +17,7 @@ app.use(
 app.use(express.json());
 
 // Template engine
-       app.engine(
+app.engine(
   'hbs',
   engine({
     extname: '.hbs',
