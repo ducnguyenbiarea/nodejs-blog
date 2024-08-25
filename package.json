@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
+    "beautiful": "lint-staged",
     "start": "nodemon --inspect src/index.js",
     "watch": "sass --watch src/resources/scss/app.scss src/public/css/app.scss",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,14 +23,26 @@
     "url": "https://github.com/ducnguyenbiarea/nodejs-blog/issues"
   },
   "homepage": "https://github.com/ducnguyenbiarea/nodejs-blog#readme",
+  "lint-staged": {
+   "src/**/*.{js, json, scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+  },
   "description": "^C",
   "dependencies": {
     "express": "^4.19.2",
     "express-handlebars": "^8.0.1"
   },
+"husky": {
+  "hooks":{
+  "pre-commit": "npm test",
+
+  }
+},
   "devDependencies": {
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
     "sass": "^1.77.8"
   }
 }
