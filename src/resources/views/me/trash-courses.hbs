@@ -1,0 +1,84 @@
+<div class="mt-4">
+    <div>
+        <a href="/me/stored/courses">Danh sách khoá học</a>
+        <h3>Khoá học đã xoá</h3>
+    </div>
+     <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên khoá học</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col" colspan="2">Thời gian xoá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/courses/{{this._id}}/edit" type="button" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</button>
+                    <a href="" class="btn btn-link" data-id="{{ this._id }}" data-bs-toggle="modal" data-bs-target="#delete-course-modal">Xoá vĩnh viễn</button>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Thùng rác trống.
+                    <a href="/me/stored/courses">Danh sách khoá học</a>
+                </td>
+            </tr>
+            {{/each }}
+        </tbody>
+    </table>
+    </div>
+    {{!-- confirm delete course --}}
+    <div id="delete-course-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xoá khoá học?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xoá khóc học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Xoá bỏ</button>
+        <button id="btn-delete-course" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name ="delete-course-form" method="POST"></form>
+<form name ="restore-course-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var courseId;
+        var deleteForm = document.forms['delete-course-form'];
+        var restoreForm = document.forms['restore-course-form'];
+        var btnDeleteCourse = document.getElementById('btn-delete-course');
+        var restoreBtn = $('.btn-restore');
+    $('#delete-course-modal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        courseId = button.data('id');
+    });
+
+        btnDeleteCourse.onclick = function () {
+            deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+
+        restoreBtn.click(function (){
+            e.preventDefault();
+            var courseId = $(this).data('id');
+            restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
+            restoreForm.submit();
+        });
+    });
+</script>

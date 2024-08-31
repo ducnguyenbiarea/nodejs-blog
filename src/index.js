@@ -13,8 +13,6 @@ db.connect();
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 
-app.use(methodOverride('_method'));
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('combined'));
 app.use(
@@ -23,6 +21,8 @@ app.use(
   }),
 );
 app.use(express.json());
+
+app.use(methodOverride('_method'));
 
 // Template engine
 app.engine(
